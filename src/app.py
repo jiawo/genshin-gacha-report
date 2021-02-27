@@ -93,22 +93,25 @@ class Runner(object):
         self.count_gacha_info["all"]["count"] = all_count
 
     def gen_report(self):
-        for gacha_type in self.count_gacha_info:
-            count = self.count_gacha_info[gacha_type]["count"]
-            total = self.count_gacha_info[gacha_type]["total"]
-            if gacha_type != "all":
-                res_str = "【%s】池中，总共祈愿%s次\n获取5星%s个，占比%.4f\n获取4星%s个，占比%.4f\n获取3星%s个，占比%.4f\n" % \
-                    (gt_eng2gt_chs[gacha_type], total,
-                     count["5"], count["5"] / total,
-                     count["4"], count["4"] / total,
-                     count["3"], count["3"] / total)
-            else:
-                res_str = "总计祈愿%s次\n获取5星%s个，占比%.4f\n获取4星%s个，占比%.4f\n获取3星%s个，占比%.4f\n" % \
-                    (total,
-                     count["5"], count["5"] / total,
-                     count["4"], count["4"] / total,
-                     count["3"], count["3"] / total)
-            print(res_str)
+        report = os.path.join(CURR_PATH, "report.txt")
+        with open(report, "w", encoding="UTF-8") as f:
+            for gacha_type in self.count_gacha_info:
+                count = self.count_gacha_info[gacha_type]["count"]
+                total = self.count_gacha_info[gacha_type]["total"]
+                if gacha_type != "all":
+                    res_str = "【%s】池中，总共祈愿%s次\n获取5星%s个，占比%.4f\n获取4星%s个，占比%.4f\n获取3星%s个，占比%.4f\n" % \
+                        (gt_eng2gt_chs[gacha_type], total,
+                         count["5"], count["5"] / total,
+                         count["4"], count["4"] / total,
+                         count["3"], count["3"] / total)
+                else:
+                    res_str = "总计祈愿%s次\n获取5星%s个，占比%.4f\n获取4星%s个，占比%.4f\n获取3星%s个，占比%.4f\n" % \
+                        (total,
+                         count["5"], count["5"] / total,
+                         count["4"], count["4"] / total,
+                         count["3"], count["3"] / total)
+                print(res_str)
+                f.write(res_str + "\n")
 
     def run(self):
         self.get_temp_url()
