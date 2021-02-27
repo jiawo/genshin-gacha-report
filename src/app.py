@@ -64,7 +64,7 @@ class Runner(object):
         for gacha_type in gacha_type2code:
             self.gacha_info[gacha_type] = []
             curr_page = 1
-            res = {"list": [""]}
+            res = {"data": {"list": [""]}}
             while len(res["data"]["list"]) != 0:
                 print("获取【%s】池，第%s页数据" % (gt_eng2gt_chs[gacha_type], curr_page))
                 url = self._gen_query_url(gacha_type, curr_page)
