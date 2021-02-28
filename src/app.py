@@ -32,7 +32,6 @@ class Runner(object):
                 self.USERPROFILE, "AppData", "LocalLow", "miHoYo", "Genshin Impact", "output_log.txt")
         if not os.path.isfile(self.genshin_log_path):
             print("日志：%s不存在，无法获取记录，请运行游戏并在游戏中查看一次祈愿记录" % self.genshin_log_path)
-            raise "error"
         self.gacha_query_info = {}
         self.gacha_info = {}
         self.count_gacha_info = {}
@@ -44,8 +43,7 @@ class Runner(object):
             res = re.search(r"OnGetWebViewPageFinish:(.*#/log)", text)
             self.url = res.group(1)
         except:
-            print("日志信息不全，无法获取记录，请运行游戏并在游戏中查看一次祈愿记录" % self.genshin_log_path)
-            raise "error"
+            print("日志信息不全，无法获取记录，请运行游戏并在游戏中查看一次祈愿记录")
 
     def parse_temp_url(self):
         urldict = urlparse(self.url)
@@ -121,11 +119,14 @@ class Runner(object):
                 f.write(res_str + "\n")
 
     def run(self):
-        self.get_temp_url()
-        self.parse_temp_url()
-        self.get_gacha_info()
-        self.analyse_gacha_info()
-        self.gen_report()
+        try:
+            self.get_temp_url()
+            self.parse_temp_url()
+            self.get_gacha_info()
+            self.analyse_gacha_info()
+            self.gen_report()
+        except Exception as e:
+            print(e)
 
 
 if __name__ == "__main__":

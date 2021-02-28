@@ -1,7 +1,7 @@
 import os
 import shutil
 
-VERSION = "v1.0.0"
+VERSION = "v1.0.1"
 CURR_PATH = os.path.dirname(os.path.abspath(__file__))
 
 src_path = os.path.join(CURR_PATH, "..", "src")
